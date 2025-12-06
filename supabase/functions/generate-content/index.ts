@@ -136,37 +136,20 @@ serve(async (req) => {
     let content: string = "";
     let usedProvider = provider;
 
-    // Try primary provider first (OpenAI by default), fallback to Lovable AI
-    if (provider === "openai") {
+    // Use OpenAI only (no fallback)
+    if (provider === "openai" || provider === "lovable") {
       try {
         content = await generateWithOpenAI(prompt);
+        usedProvider = "openai";
         console.log(`Successfully generated with OpenAI for key: ${key}`);
       } catch (openaiError) {
-        console.error("OpenAI failed, falling back to Lovable AI:", openaiError);
-        try {
-          content = await generateWithLovable(prompt);
-          usedProvider = "lovable";
-          console.log(`Fallback to Lovable AI successful for key: ${key}`);
-        } catch (lovableError) {
-          // Check for specific Lovable errors
-          if (lovableError instanceof Error) {
-            if (lovableError.message.includes("RATE_LIMIT")) {
-              return new Response(
-                JSON.stringify({ error: "Rate limit exceeded on all providers. Please try again later." }),
-                { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-              );
-            }
-            if (lovableError.message.includes("PAYMENT_REQUIRED")) {
-              return new Response(
-                JSON.stringify({ error: "AI credits exhausted on fallback. Please add funds or check OpenAI key." }),
-                { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-              );
-            }
-          }
-          throw new Error(`Both OpenAI and Lovable AI failed. OpenAI: ${openaiError}. Lovable: ${lovableError}`);
-        }
+        console.error("OpenAI failed:", openaiError);
+        return new Response(
+          JSON.stringify({ error: "OpenAI generation failed. Please check your API key." }),
+          { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
       }
-    } else if (provider === "lovable") {
+    } else if (provider === "claude" || provider === "gemini" || provider === "mistral" || provider === "groq") {
       // If explicitly requesting Lovable, try it first then fallback to OpenAI
       try {
         content = await generateWithLovable(prompt);
