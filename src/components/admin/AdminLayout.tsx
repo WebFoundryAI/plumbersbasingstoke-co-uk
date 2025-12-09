@@ -7,7 +7,8 @@ import {
   AlertTriangle,
   Home,
   LogOut,
-  Loader2
+  Loader2,
+  MapPin
 } from "lucide-react";
 import { useAuth, signOut } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
@@ -45,6 +46,12 @@ const navItems = [
     label: "Export Snapshot", 
     icon: Download,
     description: "Export configuration"
+  },
+  { 
+    href: "/admin/sitemap", 
+    label: "Sitemap Manager", 
+    icon: MapPin,
+    description: "Generate XML sitemap"
   },
 ];
 
