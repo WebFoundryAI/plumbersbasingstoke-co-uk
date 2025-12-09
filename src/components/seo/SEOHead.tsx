@@ -10,6 +10,15 @@ export function SEOHead({ metadata }: SEOHeadProps) {
   useEffect(() => {
     document.title = metadata.title;
 
+    // Google Search Console verification
+    let googleVerification = document.querySelector('meta[name="google-site-verification"]');
+    if (!googleVerification) {
+      googleVerification = document.createElement("meta");
+      googleVerification.setAttribute("name", "google-site-verification");
+      googleVerification.setAttribute("content", "NsHdtpHnQwP_k83k4Z2-v5NSIDC6qiTuGiSpNkxp3ZU");
+      document.head.appendChild(googleVerification);
+    }
+
     // Update meta description
     let metaDescription = document.querySelector('meta[name="description"]');
     if (!metaDescription) {
