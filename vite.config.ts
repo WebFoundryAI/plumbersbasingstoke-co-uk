@@ -15,6 +15,7 @@ export default defineConfig(({ mode }) => ({
     mode === "development" && componentTagger(),
     VitePWA({
       registerType: "autoUpdate",
+      injectRegister: "script-defer",
       includeAssets: ["favicon.png", "og/*.jpg", "images/*.jpg"],
       manifest: {
         name: "Blocked Drains Swindon",
@@ -48,6 +49,18 @@ export default defineConfig(({ mode }) => ({
       workbox: {
         // Cache strategies
         runtimeCaching: [
+          {
+            // Cache static JS/CSS assets (hashed filenames = immutable)
+            urlPattern: /\.(?:js|css)$/i,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "static-assets",
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
+              },
+            },
+          },
           {
             // Cache Google Fonts stylesheets
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
