@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { getStaticContent } from "@/config/staticContent";
-import { buildContentKey } from "@/lib/contentGenerator";
 import { AITemplateName } from "@/config/aiPrompts";
 
 interface UseAIContentResult {
@@ -8,6 +7,13 @@ interface UseAIContentResult {
   isLoading: boolean;
   error: string | null;
   isCached: boolean;
+}
+
+/**
+ * Build a cache key for content.
+ */
+function buildContentKey(type: string, ...parts: string[]): string {
+  return [type, ...parts].join(":");
 }
 
 /**
@@ -32,8 +38,6 @@ export function useAIContent(
     if (staticContent) {
       setContent(staticContent);
     } else {
-      // Content not found in static file - this is expected for 
-      // service-in-location pages that haven't been pre-generated yet
       console.warn(`Static content not found for key: ${key}`);
       setContent("");
     }
