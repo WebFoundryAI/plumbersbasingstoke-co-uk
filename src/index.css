@@ -170,3 +170,19 @@
     text-wrap: balance;
   }
 }
+
+/* GPU-accelerated animations to prevent forced reflow */
+.animate-fade-in,
+.animate-scale-in,
+.animate-slide-in-left {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Clean up will-change after animation completes */
+.animate-fade-in.animation-complete,
+.animate-scale-in.animation-complete,
+.animate-slide-in-left.animation-complete {
+  will-change: auto;
+}
