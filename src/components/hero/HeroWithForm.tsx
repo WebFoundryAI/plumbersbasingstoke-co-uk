@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react";
 import { BRAND } from "@/config/brand";
 import { Phone, Clock, Shield } from "lucide-react";
-import heroBg from "@/assets/hero-bg.jpg";
+import heroBg from "@/assets/hero-bg.webp";
 
 // Lazy load the form to defer react-hook-form, zod, and @radix-ui/react-select
 const LeadForm = lazy(() => import("@/components/forms/LeadForm").then(m => ({ default: m.LeadForm })));
