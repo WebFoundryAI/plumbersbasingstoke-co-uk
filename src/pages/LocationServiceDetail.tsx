@@ -140,6 +140,31 @@ const LocationServiceDetail = () => {
                 ))}
               </ul>
 
+              {/* Sub-services in this service+location */}
+              {service.subServices && service.subServices.length > 0 && (
+                <>
+                  <h3 className="text-xl font-bold mb-4">
+                    {service.name} Services in {location.name}
+                  </h3>
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
+                    {service.subServices.map((sub) => (
+                      <Link
+                        key={sub.slug}
+                        to={`/location/${location.slug}/${service.slug}/${sub.slug}`}
+                        className="p-4 bg-muted rounded-lg hover:bg-muted/70 transition-colors group"
+                      >
+                        <span className="font-medium group-hover:text-primary transition-colors">
+                          {sub.name}
+                        </span>
+                        <p className="text-sm text-muted-foreground mt-1">
+                          {sub.shortLabel || sub.description}
+                        </p>
+                      </Link>
+                    ))}
+                  </div>
+                </>
+              )}
+
               {/* Other services in this location */}
               <h3 className="text-xl font-bold mb-4">
                 Other Services in {location.name}
@@ -149,10 +174,14 @@ const LocationServiceDetail = () => {
                   <Link
                     key={s.slug}
                     to={`/location/${location.slug}/${s.slug}`}
-                    className="p-4 bg-muted rounded-lg hover:bg-muted/70 transition-colors"
+                    className="p-4 bg-muted rounded-lg hover:bg-muted/70 transition-colors group"
                   >
-                    <span className="text-2xl block mb-2">{s.icon}</span>
-                    <span className="font-medium">{s.name}</span>
+                    <span className="font-medium group-hover:text-primary transition-colors">
+                      {s.name}
+                    </span>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      {s.shortLabel}
+                    </p>
                   </Link>
                 ))}
               </div>

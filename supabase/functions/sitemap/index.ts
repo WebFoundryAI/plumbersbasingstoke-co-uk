@@ -102,6 +102,7 @@ Deno.serve(async (req) => {
     const urls: string[] = [];
 
     // Static pages (including llm.html for GEO/AI discovery)
+    // Note: /sitemap is noindex so excluded from XML sitemap
     const staticPages = [
       { url: "/", priority: "1.0", changefreq: "weekly" },
       { url: "/llm.html", priority: "0.5", changefreq: "monthly" },
@@ -111,7 +112,6 @@ Deno.serve(async (req) => {
       { url: "/contact", priority: "0.8", changefreq: "monthly" },
       { url: "/faq", priority: "0.6", changefreq: "monthly" },
       { url: "/blog", priority: "0.7", changefreq: "daily" },
-      { url: "/sitemap", priority: "0.5", changefreq: "weekly" },
       { url: "/privacy", priority: "0.3", changefreq: "yearly" },
       { url: "/terms", priority: "0.3", changefreq: "yearly" },
       { url: "/cookies", priority: "0.3", changefreq: "yearly" },

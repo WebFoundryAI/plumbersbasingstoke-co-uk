@@ -22,24 +22,32 @@ export function ServicesGrid({ showAll = false, location }: ServicesGridProps) {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {displayServices.map((service, index) => (
-            <Link
+            <article
               key={service.slug}
-              to={location ? `/location/${location}/${service.slug}` : `/services/${service.slug}`}
               className="group bg-card rounded-xl p-6 card-elevated hover:border-primary/20 border border-transparent transition-all animate-fade-in"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="text-4xl mb-4">{service.icon}</div>
-              <h3 className="text-lg font-bold mb-2 group-hover:text-primary transition-colors">
-                {service.name}
+              <div className="text-4xl mb-4" aria-hidden="true">{service.icon}</div>
+              <h3 className="text-lg font-bold mb-2">
+                <Link
+                  to={location ? `/location/${location}/${service.slug}` : `/services/${service.slug}`}
+                  className="group-hover:text-primary transition-colors"
+                >
+                  {service.name}
+                </Link>
               </h3>
               <p className="text-muted-foreground text-sm mb-4">
                 {service.shortLabel}
               </p>
-              <span className="inline-flex items-center text-primary text-sm font-medium group-hover:gap-2 transition-all">
-                Learn more
-                <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
-              </span>
-            </Link>
+              <Link
+                to={location ? `/location/${location}/${service.slug}` : `/services/${service.slug}`}
+                className="inline-flex items-center text-primary text-sm font-medium hover:gap-2 transition-all"
+                aria-label={`View ${service.name} services`}
+              >
+                View {service.name.toLowerCase()}
+                <ArrowRight className="h-4 w-4 ml-1" aria-hidden="true" />
+              </Link>
+            </article>
           ))}
         </div>
 

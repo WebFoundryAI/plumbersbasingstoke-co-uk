@@ -16,6 +16,7 @@ export interface RouteMeta {
   canonicalPath: string;
   robots: string;
   ogImage?: string;
+  noIndex?: boolean;
 }
 
 const BASE_URL = `https://${BRAND.domain}`;
@@ -89,6 +90,7 @@ export const STATIC_ROUTE_META: Record<string, Omit<RouteMeta, "canonicalPath" |
   "/sitemap": {
     title: "Sitemap | Blocked Drains Swindon",
     description: "Browse all pages on Blocked Drains Swindon. Find drainage services, local areas, blog articles, and contact information.",
+    noIndex: true,
   },
   "/privacy": {
     title: "Privacy Policy | Blocked Drains Swindon",

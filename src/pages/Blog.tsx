@@ -87,14 +87,13 @@ const Blog = () => {
           ) : posts && posts.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {posts.map((post, index) => (
-                <Link
+                <article
                   key={post.id}
-                  to={`/blog/${post.slug}`}
-                  className="group bg-card rounded-xl overflow-hidden card-elevated animate-fade-in"
+                  className="bg-card rounded-xl overflow-hidden card-elevated animate-fade-in"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <div className="aspect-video bg-muted flex items-center justify-center">
-                    <span className="text-4xl">📝</span>
+                    <span className="text-4xl" aria-hidden="true">📝</span>
                   </div>
                   <div className="p-6">
                     <time className="text-sm text-muted-foreground">
@@ -104,18 +103,27 @@ const Blog = () => {
                         year: "numeric",
                       })}
                     </time>
-                    <h2 className="text-xl font-bold mt-2 mb-3 group-hover:text-primary transition-colors">
-                      {post.title}
+                    <h2 className="text-xl font-bold mt-2 mb-3">
+                      <Link
+                        to={`/blog/${post.slug}`}
+                        className="hover:text-primary transition-colors"
+                      >
+                        {post.title}
+                      </Link>
                     </h2>
                     <p className="text-muted-foreground text-sm mb-4">
                       {post.excerpt}
                     </p>
-                    <span className="inline-flex items-center text-primary text-sm font-medium group-hover:gap-2 transition-all">
-                      Read more
-                      <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
-                    </span>
+                    <Link
+                      to={`/blog/${post.slug}`}
+                      className="inline-flex items-center text-primary text-sm font-medium hover:gap-2 transition-all"
+                      aria-label={`Read full article: ${post.title}`}
+                    >
+                      Read full article
+                      <ArrowRight className="h-4 w-4 ml-1" aria-hidden="true" />
+                    </Link>
                   </div>
-                </Link>
+                </article>
               ))}
             </div>
           ) : (

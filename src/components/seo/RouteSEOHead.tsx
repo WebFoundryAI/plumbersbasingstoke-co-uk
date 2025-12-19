@@ -138,7 +138,7 @@ export function RouteSEOHead({ override, ogImage }: RouteSEOHeadProps = {}) {
   const dynamicMeta = !staticMeta ? getDynamicSeo(location.pathname, params) : null;
   
   // Determine final values
-  const noIndex = override?.noIndex ?? shouldNoIndex(pathname);
+  const noIndex = override?.noIndex ?? staticMeta?.noIndex ?? shouldNoIndex(pathname);
   const robots = override?.robots || (noIndex ? "noindex, nofollow" : "index, follow, max-image-preview:large");
   
   const title = override?.title || staticMeta?.title || dynamicMeta?.title || BRAND.brandName;
