@@ -4,26 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <!-- DNS prefetch for older browsers -->
-    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <!-- DNS prefetch for deferred resources (non-blocking) -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com" />
     <link rel="dns-prefetch" href="//krxfvrxmriwzfwzorvzw.supabase.co" />
-    <link rel="dns-prefetch" href="//www.googletagmanager.com" />
-    <link rel="dns-prefetch" href="//www.google-analytics.com" />
     
-    <!-- Preconnect to critical origins (includes DNS + TCP + TLS) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <!-- Preconnect ONLY to fonts (truly critical for FCP) -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://krxfvrxmriwzfwzorvzw.supabase.co" />
     
-    <!-- Preload critical font weights to bypass CSS chain -->
-    <link rel="preload" href="https://fonts.gstatic.com/s/outfit/v15/QGYyz_MVcBeNP4NjuGObqx1XmO1I4TC1C4G-EiAou6Y.woff2" as="font" type="font/woff2" crossorigin />
+    <!-- Preload single critical font weight (700 = hero heading) -->
     <link rel="preload" href="https://fonts.gstatic.com/s/outfit/v15/QGYyz_MVcBeNP4NjuGObqx1XmO1I4bC0C4G-EiAou6Y.woff2" as="font" type="font/woff2" crossorigin />
     
-    <!-- Preload favicon for faster first paint -->
-    <link rel="preload" href="/favicon.png" as="image" type="image/png" />
-    
-    <!-- Hero background image preload for LCP -->
+    <!-- Hero background preload for LCP -->
     <link rel="preload" href="/src/assets/hero-bg.webp" as="image" type="image/webp" fetchpriority="high" />
     
     <!-- Google Fonts - fully async load (no preload as="style" which can block) -->
