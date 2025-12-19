@@ -11,6 +11,8 @@ export default defineConfig(({ mode }) => ({
     port: 8080,
   },
   build: {
+    // Enable source maps for debugging (no sensitive logic in this local service site)
+    sourcemap: true,
     // Optimize chunk splitting for better caching and smaller initial load
     rollupOptions: {
       output: {
