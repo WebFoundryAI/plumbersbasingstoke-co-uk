@@ -43,6 +43,13 @@ const SERVICES = [
       { slug: "sewage-emergency" },
     ],
   },
+  {
+    slug: "drain-repairs",
+    subServices: [
+      { slug: "pipe-relining" },
+      { slug: "drain-excavation" },
+    ],
+  },
 ];
 
 const LOCATIONS = [

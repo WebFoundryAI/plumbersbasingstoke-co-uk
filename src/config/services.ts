@@ -162,6 +162,33 @@ export const SERVICES: ServiceConfig[] = [
       riskFactors: ["health hazard", "property damage", "contamination"],
     },
   },
+  {
+    slug: "drain-repairs",
+    name: "Drain Repairs",
+    shortLabel: "Drain repair services",
+    description: "Professional drain repair services including pipe repairs, relining, and replacement.",
+    icon: "🔧",
+    subServices: [
+      {
+        slug: "pipe-relining",
+        name: "Pipe Relining",
+        shortLabel: "No-dig pipe repair",
+        description: "Trenchless pipe relining to repair damaged drains without excavation.",
+      },
+      {
+        slug: "drain-excavation",
+        name: "Drain Excavation",
+        shortLabel: "Excavation and replacement",
+        description: "Full drain excavation and replacement for severely damaged pipes.",
+      },
+    ],
+    semanticTags: {
+      problemType: ["damage", "cracks", "collapse", "leaks"],
+      serviceType: ["repair", "replacement", "maintenance"],
+      propertyType: ["residential", "commercial"],
+      riskFactors: ["structural damage", "flooding", "contamination"],
+    },
+  },
 ];
 
 export function getServiceBySlug(slug: string): ServiceConfig | undefined {

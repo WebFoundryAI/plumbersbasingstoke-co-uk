@@ -165,6 +165,24 @@
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://swindonblockeddrains.co.uk/services/drain-repairs</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://swindonblockeddrains.co.uk/services/drain-repairs/pipe-relining</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://swindonblockeddrains.co.uk/services/drain-repairs/drain-excavation</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
 
   <!-- Location Pages -->
   <url>
@@ -381,6 +399,42 @@
   </url>
   <url>
     <loc>https://swindonblockeddrains.co.uk/location/wroughton/emergency-drain-services</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://swindonblockeddrains.co.uk/location/swindon/drain-repairs</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://swindonblockeddrains.co.uk/location/royal-wootton-bassett/drain-repairs</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://swindonblockeddrains.co.uk/location/highworth/drain-repairs</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://swindonblockeddrains.co.uk/location/purton/drain-repairs</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://swindonblockeddrains.co.uk/location/cricklade/drain-repairs</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://swindonblockeddrains.co.uk/location/wroughton/drain-repairs</loc>
     <lastmod>2025-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -789,6 +843,80 @@
   </url>
   <url>
     <loc>https://swindonblockeddrains.co.uk/location/wroughton/emergency-drain-services/sewage-emergency</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Location + Sub-Service Pages (Drain Repairs - All Locations) -->
+  <url>
+    <loc>https://swindonblockeddrains.co.uk/location/swindon/drain-repairs/pipe-relining</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://swindonblockeddrains.co.uk/location/swindon/drain-repairs/drain-excavation</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://swindonblockeddrains.co.uk/location/royal-wootton-bassett/drain-repairs/pipe-relining</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://swindonblockeddrains.co.uk/location/royal-wootton-bassett/drain-repairs/drain-excavation</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://swindonblockeddrains.co.uk/location/highworth/drain-repairs/pipe-relining</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://swindonblockeddrains.co.uk/location/highworth/drain-repairs/drain-excavation</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://swindonblockeddrains.co.uk/location/purton/drain-repairs/pipe-relining</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://swindonblockeddrains.co.uk/location/purton/drain-repairs/drain-excavation</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://swindonblockeddrains.co.uk/location/cricklade/drain-repairs/pipe-relining</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://swindonblockeddrains.co.uk/location/cricklade/drain-repairs/drain-excavation</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://swindonblockeddrains.co.uk/location/wroughton/drain-repairs/pipe-relining</loc>
+    <lastmod>2025-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://swindonblockeddrains.co.uk/location/wroughton/drain-repairs/drain-excavation</loc>
     <lastmod>2025-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
