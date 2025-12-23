@@ -276,6 +276,100 @@ At Blocked Drains Swindon, we pride ourselves on our transparent communication a
 
 If you find yourself facing a drainage emergency, don't hesitate to reach out to Blocked Drains Swindon. Our friendly team is just a phone call away and ready to help you regain control of your home's drainage system. Ensure your peace of mind with our professional emergency drain services—call us today to get started.`,
 
+  "service:drain-repairs": `# Blocked Toilet in Swindon – Fast, Clean and Guaranteed Fix
+
+Toilet won't flush? Overflowing or rising water level? We unblock toilets across Swindon with fast response, fixed pricing, and no mess left behind.
+
+---
+
+## 🚽 Toilet Blockages We Clear Daily
+
+We handle:
+
+- Toilets blocked with paper, wipes or foreign objects
+- Toilets backing up into the bowl or overflowing
+- Commercial toilet blockages in pubs, schools, and offices
+- Repeated flushing issues or poor drainage
+
+If your toilet isn't clearing, don't keep flushing — it often makes things worse.
+
+[Call Now →](tel:01793487489) or [Book Online →](/contact)
+
+---
+
+## 🚮 How We Fix It (Properly)
+
+We use specialist tools to unblock toilets quickly and safely:
+
+- Mechanical toilet augers for internal blockages
+- High-pressure mini jetting for external traps
+- CCTV checks if the issue is deeper in the pipework
+
+We always clean the area, sanitise if needed, and confirm the flush is fully working before we leave.
+
+> "Toilet overflowed late at night. They came fast, cleared it, and left everything spotless. Highly recommend."
+> – Liam M., Swindon SN1
+
+---
+
+## 💸 Toilet Unblocking Prices
+
+Prices start from **£89 + VAT**. This includes:
+
+- Initial assessment
+- Full blockage removal (internal or external)
+- Clean-up and test flush
+
+You'll get a fixed quote on arrival. No call-out charge. No extras without approval.
+
+[Check pricing →](/pricing)
+
+---
+
+## 🔍 When a Blocked Toilet Means More
+
+If we find ongoing issues, we may recommend:
+
+- CCTV drain survey to check deeper pipework
+- Drain jetting to clear recurring build-up
+- Advice on repair if structural problems exist
+
+[Learn about drain surveys →](/services/cctv-drain-surveys)
+[Jetting services →](/location/swindon/drain-jetting)
+
+---
+
+## 💬 Blocked Toilet FAQs
+
+**Do I need to leave the house?**
+No. We isolate the issue and work cleanly with no disruption.
+
+**Can you fix it on the first visit?**
+Yes – over 95% are cleared within 1 hour.
+
+**Is it dangerous?**
+Not usually, but it can become unsanitary. We sanitise as part of the job.
+
+**Do you clean up after?**
+Always. Clean-up is included. We leave the area safe and usable.
+
+---
+
+## 📍 Related Services
+
+- [Emergency Toilet Overflow →](/location/swindon/emergency-drain-services/sewage-emergency)
+- [Blocked Sink Service →](/services/blocked-drains/blocked-sink)
+- [CCTV Drain Checks →](/services/cctv-drain-surveys)
+
+---
+
+## 📞 Call Now to Unblock Your Toilet in Swindon
+
+**Phone:** [01793 487489](tel:01793487489)
+**Or [Book Online →](/contact)**
+
+Same-day toilet unblocking. No mess. No delay. Guaranteed fix.`,
+
   // ===== SUB-SERVICES =====
   "subService:blocked-drains:blocked-bath": `At Blocked Drains Swindon, we specialise in resolving blocked bath issues for homeowners across Swindon and the surrounding areas. A blocked bath can be a frustrating and inconvenient problem, often causing water to drain slowly or not at all, leading to unpleasant odours and potential water damage. Our experienced team is equipped to diagnose and remedy these issues promptly, ensuring your bathroom returns to full functionality.
 
