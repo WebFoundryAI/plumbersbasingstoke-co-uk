@@ -61,6 +61,7 @@ const AdminBlogScheduler = lazy(() => import("./pages/AdminBlogScheduler"));
 const AdminRebrand = lazy(() => import("./pages/AdminRebrand"));
 const AdminExport = lazy(() => import("./pages/AdminExport"));
 const AdminSitemap = lazy(() => import("./pages/AdminSitemap"));
+const Status = lazy(() => import("./pages/Status"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -106,6 +107,7 @@ const App = () => (
             <Route path="/admin/rebrand" element={<AdminRebrand />} />
             <Route path="/admin/export" element={<AdminExport />} />
             <Route path="/admin/sitemap" element={<AdminSitemap />} />
+            <Route path="/status" element={<Status />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
