@@ -121,20 +121,42 @@
     <script type="module" src="/src/main.tsx"></script>
     <!-- GA4 - load only on user interaction to save 56KB from critical path -->
     <script>
-      function loadGA4() {
-        if (window.ga4Loaded) return;
-        window.ga4Loaded = true;
-        var s = document.createElement('script');
-        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-ZBN7YE9HZJ';
-        s.async = true;
-        document.head.appendChild(s);
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        window.gtag = gtag;
-        gtag('js', new Date());
-        gtag('config', 'G-ZBN7YE9HZJ');
-      }
-      ['scroll','click','touchstart'].forEach(function(e){document.addEventListener(e,loadGA4,{once:true,passive:true})});
+      (function() {
+        'use strict';
+        var ga4Loaded = false;
+        
+        function loadGA4() {
+          if (ga4Loaded) return;
+          ga4Loaded = true;
+          
+          var s = document.createElement('script');
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=G-ZBN7YE9HZJ';
+          s.async = true;
+          s.onerror = function() {
+            console.warn('GA4 script failed to load');
+          };
+          document.head.appendChild(s);
+          
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { window.dataLayer.push(arguments); }
+          window.gtag = gtag;
+          gtag('js', new Date());
+          gtag('config', 'G-ZBN7YE9HZJ');
+        }
+        
+        // Wait for DOM to be interactive before adding listeners
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', function() {
+            ['scroll', 'click', 'touchstart'].forEach(function(e) {
+              document.addEventListener(e, loadGA4, { once: true, passive: true });
+            });
+          });
+        } else {
+          ['scroll', 'click', 'touchstart'].forEach(function(e) {
+            document.addEventListener(e, loadGA4, { once: true, passive: true });
+          });
+        }
+      })();
     </script>
   </body>
 </html>
