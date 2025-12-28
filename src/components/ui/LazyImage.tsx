@@ -8,8 +8,9 @@ interface LazyImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
 }
 
 /**
- * LazyImage component with native lazy loading and blur-up effect.
- * Uses Intersection Observer for browsers that need it, with native loading="lazy" as fallback.
+ * LazyImage component with native lazy loading and CSS-only transitions.
+ * Uses Intersection Observer for visibility detection.
+ * Optimized to avoid forced synchronous layouts.
  */
 export function LazyImage({
   src,
@@ -23,9 +24,10 @@ export function LazyImage({
   const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
-    // Use Intersection Observer for better control
-    if (!imgRef.current) return;
+    const img = imgRef.current;
+    if (!img) return;
 
+    // Use Intersection Observer - no layout reads required
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -34,25 +36,27 @@ export function LazyImage({
         }
       },
       {
-        rootMargin: "200px", // Start loading 200px before entering viewport
+        rootMargin: "200px",
         threshold: 0,
       }
     );
 
-    observer.observe(imgRef.current);
-
+    observer.observe(img);
     return () => observer.disconnect();
   }, []);
 
   return (
     <div className={cn("relative overflow-hidden", placeholderClassName)}>
-      {/* Placeholder with blur effect */}
-      {!isLoaded && (
-        <div
-          className="absolute inset-0 bg-muted animate-pulse"
-          aria-hidden="true"
-        />
-      )}
+      {/* CSS-only placeholder - no layout thrashing */}
+      <div
+        className={cn(
+          "absolute inset-0 bg-muted",
+          // Use opacity for GPU-accelerated hide/show
+          isLoaded ? "opacity-0" : "opacity-100 animate-pulse"
+        )}
+        style={{ transition: "opacity 0.3s ease-out" }}
+        aria-hidden="true"
+      />
       
       <img
         ref={imgRef}
@@ -62,10 +66,11 @@ export function LazyImage({
         decoding="async"
         onLoad={() => setIsLoaded(true)}
         className={cn(
-          "transition-opacity duration-300",
+          // Use opacity for GPU-accelerated fade-in (no layout trigger)
           isLoaded ? "opacity-100" : "opacity-0",
           className
         )}
+        style={{ transition: "opacity 0.3s ease-out" }}
         {...props}
       />
     </div>
