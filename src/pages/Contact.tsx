@@ -4,6 +4,8 @@ import { RouteSEOHead } from "@/components/seo/RouteSEOHead";
 import { SchemaScript } from "@/components/seo/SchemaScript";
 import { BRAND } from "@/config/brand";
 import { generateContactPageSchema, generateLocalBusinessSchema, generateBreadcrumbSchema } from "@/lib/schema";
+import { trackPhoneClick } from "@/lib/trackPhoneClick";
+import { trackEmailClick } from "@/lib/trackEmailClick";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 
 const Contact = () => {
@@ -48,6 +50,7 @@ const Contact = () => {
                     <h3 className="font-semibold mb-1">Phone</h3>
                     <a
                       href={`tel:${BRAND.phone}`}
+                      onClick={() => trackPhoneClick("contact")}
                       className="text-lg text-primary hover:underline"
                     >
                       {BRAND.phone}
@@ -66,6 +69,7 @@ const Contact = () => {
                     <h3 className="font-semibold mb-1">Email</h3>
                     <a
                       href={`mailto:${BRAND.email}`}
+                      onClick={() => trackEmailClick("contact")}
                       className="text-lg text-primary hover:underline"
                     >
                       {BRAND.email}
