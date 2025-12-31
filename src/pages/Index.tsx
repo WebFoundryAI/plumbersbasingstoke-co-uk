@@ -26,6 +26,7 @@ import {
   LazyGuaranteesSection,
   LazyManchesterFAQSection,
   LazyCTASection,
+  LazyBlockedDrainsContent,
   LazySectionWrapper,
 } from "@/components/lazy/LazySections";
 
@@ -57,9 +58,13 @@ const Index = () => {
       
       <TrustBadges />
 
-      {/* Pillar content - expanded 1,000-1,500 word section with H2 structure */}
-      {/* EXPANSION: Service detail enhancement */}
+      {/* Pillar content - existing service overview */}
       <PillarContent />
+      
+      {/* Expanded blocked drains content - ~1500 words with FAQs, process steps, internal links */}
+      <LazySectionWrapper height="h-[600px]">
+        <LazyBlockedDrainsContent />
+      </LazySectionWrapper>
 
       {/* Below-fold content - lazy loaded for performance */}
       <LazySectionWrapper height="h-96">

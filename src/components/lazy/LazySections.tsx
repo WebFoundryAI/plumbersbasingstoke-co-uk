@@ -37,6 +37,12 @@ export const LazyCTASection = lazy(() =>
   }))
 );
 
+export const LazyBlockedDrainsContent = lazy(() =>
+  import("@/components/sections/BlockedDrainsContent").then((m) => ({
+    default: m.BlockedDrainsContent,
+  }))
+);
+
 // Generic section placeholder
 function SectionPlaceholder({ height = "h-64" }: { height?: string }) {
   return (
