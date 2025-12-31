@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-// Import hero images at different sizes
+// Import hero image - already optimized as WebP
 import heroBgFull from "@/assets/hero-bg.webp";
 
 interface ResponsiveHeroImageProps {
@@ -9,13 +9,18 @@ interface ResponsiveHeroImageProps {
 }
 
 /**
- * Responsive hero background component.
- * Uses CSS background-image with responsive sizing.
- * For true srcset support, we'd need multiple image sizes generated at build time.
- * This component optimizes loading by:
- * 1. Using webp format (already optimized)
- * 2. Preloading on high-priority
- * 3. Using CSS object-fit for responsive sizing
+ * Responsive hero background component with optimized loading.
+ * Uses the existing WebP image with responsive sizing via CSS.
+ * 
+ * Note: For true multi-resolution srcset, you would need:
+ * 1. Source images in PNG/JPG format (not WebP - can't re-encode)
+ * 2. vite-imagetools to generate multiple sizes at build time
+ * 
+ * Current optimizations:
+ * - WebP format (already compressed)
+ * - Eager loading with high fetch priority for LCP
+ * - CSS object-fit for responsive display
+ * - Smooth fade-in transition
  */
 export function ResponsiveHeroImage({ 
   className = "",
@@ -23,9 +28,13 @@ export function ResponsiveHeroImage({
 }: ResponsiveHeroImageProps) {
   const [isLoaded, setIsLoaded] = useState(false);
 
+  // Preload the hero image for LCP optimization
   useEffect(() => {
-    if (priority) {
-      // Preload the image for LCP optimization
+    if (priority && typeof document !== 'undefined') {
+      // Check if preload link already exists
+      const existingLink = document.querySelector(`link[href="${heroBgFull}"]`);
+      if (existingLink) return;
+
       const link = document.createElement("link");
       link.rel = "preload";
       link.as = "image";
@@ -34,7 +43,9 @@ export function ResponsiveHeroImage({
       document.head.appendChild(link);
       
       return () => {
-        document.head.removeChild(link);
+        if (link.parentNode) {
+          document.head.removeChild(link);
+        }
       };
     }
   }, [priority]);
@@ -49,21 +60,29 @@ export function ResponsiveHeroImage({
         aria-hidden="true"
       />
       
-      {/* Main hero image */}
-      <img
-        src={heroBgFull}
-        alt=""
-        role="presentation"
-        loading={priority ? "eager" : "lazy"}
-        decoding={priority ? "sync" : "async"}
-        fetchPriority={priority ? "high" : "auto"}
-        onLoad={() => setIsLoaded(true)}
-        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
-          isLoaded ? "opacity-100" : "opacity-0"
-        }`}
-        // Responsive sizing hints for browser
-        sizes="100vw"
-      />
+      {/* Picture element for format fallback support */}
+      <picture className="absolute inset-0 w-full h-full">
+        {/* WebP source - primary format */}
+        <source
+          type="image/webp"
+          srcSet={heroBgFull}
+          sizes="100vw"
+        />
+        {/* Fallback img element */}
+        <img
+          src={heroBgFull}
+          alt=""
+          role="presentation"
+          loading={priority ? "eager" : "lazy"}
+          decoding={priority ? "sync" : "async"}
+          fetchPriority={priority ? "high" : "auto"}
+          onLoad={() => setIsLoaded(true)}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
+            isLoaded ? "opacity-100" : "opacity-0"
+          }`}
+          sizes="100vw"
+        />
+      </picture>
       
       {/* Dark overlay for text readability */}
       <div className="absolute inset-0 bg-black/40" />
