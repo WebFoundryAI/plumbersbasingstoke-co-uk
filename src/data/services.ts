@@ -11,6 +11,7 @@ export interface Service {
   shortLabel: string;
   description: string;
   icon: string;
+  ogImage?: string;
   subServices?: SubService[];
 }
 
@@ -21,6 +22,7 @@ export const SERVICES: Service[] = [
     shortLabel: "Blocked drains cleared fast",
     description: "Professional drain unblocking service using the latest equipment. We clear all types of blockages quickly and efficiently.",
     icon: "🚿",
+    ogImage: "/og/blocked-drains-og.jpg",
     subServices: [
       {
         slug: "blocked-toilet",
@@ -48,6 +50,7 @@ export const SERVICES: Service[] = [
     shortLabel: "Sink and toilet unblocking",
     description: "Expert unblocking of sinks, toilets, baths, and shower drains. No call-out charges, fixed pricing.",
     icon: "🔧",
+    ogImage: "/og/drain-unblocking-og.jpg",
     subServices: [
       {
         slug: "external-drain-unblocking",
@@ -69,6 +72,7 @@ export const SERVICES: Service[] = [
     shortLabel: "CCTV drain inspections",
     description: "High-definition CCTV surveys to diagnose drainage issues accurately. Detailed reports provided.",
     icon: "📹",
+    ogImage: "/og/cctv-surveys-og.jpg",
     subServices: [
       {
         slug: "pre-purchase-survey",
@@ -90,6 +94,7 @@ export const SERVICES: Service[] = [
     shortLabel: "High-pressure jetting",
     description: "Powerful high-pressure water jetting to clear stubborn blockages and clean drains thoroughly.",
     icon: "💧",
+    ogImage: "/og/drain-jetting-og.jpg",
     subServices: [
       {
         slug: "domestic-jetting",
@@ -111,6 +116,7 @@ export const SERVICES: Service[] = [
     shortLabel: "24/7 emergency callouts",
     description: "Round-the-clock emergency drainage services. Fast response times when you need us most.",
     icon: "🚨",
+    ogImage: "/og/emergency-drains-og.jpg",
     subServices: [
       {
         slug: "flooding-emergency",

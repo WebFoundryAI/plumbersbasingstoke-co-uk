@@ -35,7 +35,7 @@ const benefits = [
 ];
 ---
 
-<BaseLayout title={title} description={description} canonical={`/services/${service.slug}`}>
+<BaseLayout title={title} description={description} canonical={`/services/${service.slug}`} image={service.ogImage}>
   <!-- Service Schema JSON-LD -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
