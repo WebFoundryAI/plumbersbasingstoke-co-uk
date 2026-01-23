@@ -1,0 +1,53 @@
+# Netlify build configuration
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Security headers for all routes
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # HSTS - Force HTTPS for 2 years
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
+    # Prevent MIME type sniffing
+    X-Content-Type-Options = "nosniff"
+    # Prevent clickjacking
+    X-Frame-Options = "SAMEORIGIN"
+    # Referrer policy for privacy
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    # XSS Protection (legacy)
+    X-XSS-Protection = "1; mode=block"
+    # Content Security Policy
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'"
+    # Permissions Policy
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
+
+# Cache immutable assets (hashed files)
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Cache images with revalidation
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000, stale-while-revalidate=86400"
+
+[[headers]]
+  for = "/og/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000, stale-while-revalidate=86400"
+
+# HTML pages - no cache
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+# Redirects (www to non-www)
+[[redirects]]
+  from = "https://www.manchesterblockeddrain.co.uk/*"
+  to = "https://manchesterblockeddrain.co.uk/:splat"
+  status = 301
+  force = true
