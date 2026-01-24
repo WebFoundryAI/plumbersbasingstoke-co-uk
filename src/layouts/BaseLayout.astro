@@ -40,6 +40,7 @@ const pageSchema = schema || getHomepageSchema();
   <meta name="description" content={description} />
   {noindex && <meta name="robots" content="noindex, follow" />}
   <link rel="canonical" href={canonicalUrl} />
+  {noindex && <meta name="robots" content="noindex, follow" />}
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
@@ -133,7 +134,7 @@ const pageSchema = schema || getHomepageSchema();
         <button
           id="mobile-menu-button"
           class="lg:hidden p-3 -mr-3"
-          aria-label="Toggle menu"
+aria-label="Toggle navigation menu"
           aria-expanded="false"
           aria-controls="mobile-menu"
         >
@@ -265,7 +266,7 @@ const pageSchema = schema || getHomepageSchema();
     const mobileMenu = document.getElementById('mobile-menu');
 
     menuButton?.addEventListener('click', () => {
-      const isHidden = mobileMenu?.classList.toggle('hidden');
+const isHidden = mobileMenu?.classList.toggle('hidden');
       menuButton.setAttribute('aria-expanded', isHidden ? 'false' : 'true');
     });
   </script>
