@@ -1,15 +1,23 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { BRAND } from '../data/brand';
+import { getBreadcrumbSchema } from '../utils/schema';
 
 // SEO-optimized title (50-60 chars)
 const title = `Contact Us | Get a Free Quote | ${BRAND.phoneFormatted}`;
 
 // SEO-optimized description (120-155 chars) with benefits and CTA
 const description = `Contact ${BRAND.brandName} for a free, no-obligation quote. 24/7 emergency response across Greater Manchester. Call ${BRAND.phoneFormatted} or request a callback.`;
+
+const breadcrumbSchema = getBreadcrumbSchema([
+  { name: "Home", url: "/" },
+  { name: "Contact Us", url: "/contact" }
+]);
 ---
 
 <BaseLayout title={title} description={description} canonical="/contact">
+  <!-- BreadcrumbList Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   <!-- Hero Section -->
   <section class="hero-section">
     <div class="hero-overlay py-16 md:py-20">

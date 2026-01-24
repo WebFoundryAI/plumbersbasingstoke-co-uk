@@ -3,15 +3,23 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { BRAND } from '../../data/brand';
 import { SERVICES } from '../../data/services';
 import { SERVICES_OVERVIEW } from '../../data/staticContent';
+import { getBreadcrumbSchema } from '../../utils/schema';
 
 // SEO-optimized title (50-60 chars)
 const title = `Our Drainage Services | Manchester Drain Specialists`;
 
 // SEO-optimized description (120-155 chars) with benefits and CTA
 const description = `Full range of drainage services: blocked drains, CCTV surveys, drain jetting, and emergency repairs. No call-out fee, fixed pricing. Call ${BRAND.phoneFormatted}.`;
+
+const breadcrumbSchema = getBreadcrumbSchema([
+  { name: "Home", url: "/" },
+  { name: "Services", url: "/services" }
+]);
 ---
 
 <BaseLayout title={title} description={description} canonical="/services">
+  <!-- BreadcrumbList Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   <!-- Hero Section -->
   <section class="hero-section">
     <div class="hero-overlay py-16 md:py-20">

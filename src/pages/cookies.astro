@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { BRAND } from '../data/brand';
+import { getBreadcrumbSchema } from '../utils/schema';
 
 // SEO-optimized title (50-60 chars)
 const title = `Cookie Policy | How We Use Cookies on Our Website`;
@@ -8,9 +9,17 @@ const title = `Cookie Policy | How We Use Cookies on Our Website`;
 // SEO-optimized description (120-155 chars)
 const description = `Learn about the cookies used on the ${BRAND.brandName} website, how they work, and how to manage your cookie preferences for the best experience.`;
 const today = new Date().toLocaleDateString('en-GB');
+
+const breadcrumbSchema = getBreadcrumbSchema([
+  { name: "Home", url: "/" },
+  { name: "Cookie Policy", url: "/cookies" }
+]);
 ---
 
 <BaseLayout title={title} description={description} canonical="/cookies">
+  <!-- BreadcrumbList Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
   <section class="section-padding">
     <div class="container-narrow px-4">
       <h1 class="text-3xl md:text-4xl font-bold mb-6">Cookie Policy</h1>

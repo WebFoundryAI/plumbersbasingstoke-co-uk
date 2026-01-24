@@ -3,12 +3,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { BRAND } from '../data/brand';
 import { SERVICES } from '../data/services';
 import { LOCATIONS } from '../data/locations';
+import { getBreadcrumbSchema } from '../utils/schema';
 
 // SEO-optimized title (50-60 chars)
 const title = `Sitemap | Browse All Pages and Services`;
 
 // SEO-optimized description (120-155 chars)
 const description = `Complete sitemap for ${BRAND.brandName}. Browse all drainage services, locations across Greater Manchester, and information pages on our website.`;
+
+const breadcrumbSchema = getBreadcrumbSchema([
+  { name: "Home", url: "/" },
+  { name: "Sitemap", url: "/sitemap" }
+]);
 
 const staticPages = [
   { url: '/', name: 'Home' },
@@ -55,6 +61,9 @@ const totalPages =
 ---
 
 <BaseLayout title={title} description={description} canonical="/sitemap">
+  <!-- BreadcrumbList Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
   <section class="section-padding">
     <div class="container-wide px-4">
       <h1 class="text-3xl font-bold mb-2">Sitemap</h1>
