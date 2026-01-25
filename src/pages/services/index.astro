@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { BRAND } from '../../data/brand';
 import { SERVICES } from '../../data/services';
 import { SERVICES_OVERVIEW } from '../../data/staticContent';
-import { getBreadcrumbSchema } from '../../utils/schema';
+import { getBreadcrumbSchema, getWebPageSchema, serializeSchema } from '../../utils/schema';
 
 // SEO-optimized title (50-60 chars)
 const title = `Our Drainage Services | Manchester Drain Specialists`;
@@ -11,15 +11,25 @@ const title = `Our Drainage Services | Manchester Drain Specialists`;
 // SEO-optimized description (120-155 chars) with benefits and CTA
 const description = `Full range of drainage services: blocked drains, CCTV surveys, drain jetting, and emergency repairs. No call-out fee, fixed pricing. Call ${BRAND.phoneFormatted}.`;
 
-const breadcrumbSchema = getBreadcrumbSchema([
+const breadcrumbItems = [
   { name: "Home", url: "/" },
   { name: "Services", url: "/services" }
-]);
+];
+
+const breadcrumbSchema = getBreadcrumbSchema(breadcrumbItems);
+const webPageSchema = getWebPageSchema({
+  url: '/services',
+  name: title,
+  description: description,
+  breadcrumb: breadcrumbItems
+});
+
+const combinedPageSchema = [breadcrumbSchema, webPageSchema];
 ---
 
 <BaseLayout title={title} description={description} canonical="/services">
-  <!-- BreadcrumbList Schema -->
-  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <!-- Page Schemas (Breadcrumb + WebPage) -->
+  <script type="application/ld+json" set:html={serializeSchema(combinedPageSchema)} />
   <!-- Hero Section -->
   <section class="hero-section">
     <div class="hero-overlay py-16 md:py-20">

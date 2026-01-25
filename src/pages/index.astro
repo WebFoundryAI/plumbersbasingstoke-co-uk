@@ -5,11 +5,16 @@ import { SERVICES } from '../data/services';
 import { LOCATIONS } from '../data/locations';
 import { GENERIC_FAQS } from '../data/faqs';
 import { HOME_INTRO } from '../data/staticContent';
-import { getHomepageSchema, getFAQSchema } from '../utils/schema';
+import { getCompleteHomepageSchema, getFAQSchema, getWebPageSchema } from '../utils/schema';
 
-const homepageSchema = getHomepageSchema();
+const completeHomepageSchema = getCompleteHomepageSchema();
 const faqSchema = getFAQSchema(GENERIC_FAQS);
-const combinedSchema = [homepageSchema, faqSchema];
+const webPageSchema = getWebPageSchema({
+  url: '/',
+  name: 'Blocked Drains Manchester | 24/7 Emergency Drain Unblocking',
+  description: 'Professional drain unblocking in Manchester. Emergency call-outs, CCTV surveys, drain repairs. No call-out fee, fixed pricing.'
+});
+const combinedSchema = [...completeHomepageSchema, faqSchema, webPageSchema];
 
 // SEO-optimized title (50-60 chars) - keyword-focused for primary search term
 const title = `Blocked Drains Manchester | 24/7 Local Drain Unblocking`;

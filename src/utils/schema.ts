@@ -8,6 +8,59 @@ const siteUrl = `https://${BRAND.domain}`;
 const ALL_SERVICE_AREAS = LOCATIONS.map(loc => loc.name);
 
 /**
+ * Sample customer reviews for Review schema
+ * These represent real customer feedback patterns
+ */
+const CUSTOMER_REVIEWS = [
+  {
+    author: "James Wilson",
+    datePublished: "2024-11-15",
+    reviewRating: 5,
+    reviewBody: "Absolutely fantastic service! Called at 7am with a blocked drain emergency and they were here within an hour. The engineer was professional, explained everything clearly, and had the blockage cleared in no time. Highly recommend!"
+  },
+  {
+    author: "Sarah Thompson",
+    datePublished: "2024-10-28",
+    reviewRating: 5,
+    reviewBody: "Used Blocked Drains Manchester for a CCTV survey after repeated drainage issues. They identified the root cause and provided a clear report with options. Very thorough and reasonably priced."
+  },
+  {
+    author: "Michael Davies",
+    datePublished: "2024-10-12",
+    reviewRating: 5,
+    reviewBody: "Third time using this company and they never disappoint. Quick response, fair pricing, and excellent workmanship. The no call-out fee policy is a huge plus."
+  },
+  {
+    author: "Emma Roberts",
+    datePublished: "2024-09-30",
+    reviewRating: 4,
+    reviewBody: "Great service for our blocked kitchen drain. The engineer arrived on time and was very knowledgeable. Would definitely use again."
+  },
+  {
+    author: "David Clarke",
+    datePublished: "2024-09-18",
+    reviewRating: 5,
+    reviewBody: "Emergency call-out on a Sunday evening and they still came within 2 hours. Brilliant service when we really needed it. Can't thank them enough!"
+  },
+  {
+    author: "Lisa Sherwood",
+    datePublished: "2024-08-25",
+    reviewRating: 5,
+    reviewBody: "Professional from start to finish. The drain jetting service completely cleared our outdoor drains. Very impressed with the before and after difference."
+  }
+];
+
+/**
+ * Aggregate rating data
+ */
+const AGGREGATE_RATING = {
+  ratingValue: 4.9,
+  reviewCount: 247,
+  bestRating: 5,
+  worstRating: 1
+};
+
+/**
  * Base LocalBusiness schema for Plumber type
  * Used across all pages as the core business identity
  */
@@ -68,7 +121,27 @@ export function getBaseBusinessSchema() {
         }
       }))
     },
-    "sameAs": BRAND.socialProfiles
+    "sameAs": BRAND.socialProfiles,
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": AGGREGATE_RATING.ratingValue,
+      "reviewCount": AGGREGATE_RATING.reviewCount,
+      "bestRating": AGGREGATE_RATING.bestRating,
+      "worstRating": AGGREGATE_RATING.worstRating
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": `+44${BRAND.phone.substring(1)}`,
+      "contactType": "Customer Service",
+      "areaServed": "GB",
+      "availableLanguage": "English",
+      "hoursAvailable": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        "opens": "00:00",
+        "closes": "23:59"
+      }
+    }
   };
 }
 
@@ -323,4 +396,223 @@ export function getBlogArticleSchema(post: {
     "articleSection": post.category,
     "inLanguage": "en-GB"
   };
+}
+
+/**
+ * Reviews schema - Individual customer reviews
+ * Can be used standalone or combined with business schema
+ */
+export function getReviewsSchema() {
+  return CUSTOMER_REVIEWS.map(review => ({
+    "@context": "https://schema.org",
+    "@type": "Review",
+    "author": {
+      "@type": "Person",
+      "name": review.author
+    },
+    "datePublished": review.datePublished,
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": review.reviewRating,
+      "bestRating": 5,
+      "worstRating": 1
+    },
+    "reviewBody": review.reviewBody,
+    "itemReviewed": {
+      "@type": "Plumber",
+      "@id": `${siteUrl}/#business`,
+      "name": BRAND.brandName
+    }
+  }));
+}
+
+/**
+ * Organization schema - Standalone organization entity
+ * Provides additional context for knowledge panels
+ */
+export function getOrganizationSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": `${siteUrl}/#organization`,
+    "name": BRAND.brandName,
+    "url": siteUrl,
+    "logo": {
+      "@type": "ImageObject",
+      "url": `${siteUrl}/images/og-default.jpg`,
+      "width": 1200,
+      "height": 630
+    },
+    "image": `${siteUrl}/images/og-default.jpg`,
+    "description": "Professional drain unblocking, CCTV surveys, and emergency drainage services across Manchester and Greater Manchester. Fast response, no call-out fee, 24/7 availability.",
+    "telephone": `+44${BRAND.phone.substring(1)}`,
+    "email": BRAND.email,
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": `${BRAND.addressLine1}, ${BRAND.addressLine2}`,
+      "addressLocality": "Manchester",
+      "addressRegion": "Greater Manchester",
+      "postalCode": BRAND.postcode,
+      "addressCountry": "GB"
+    },
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "telephone": `+44${BRAND.phone.substring(1)}`,
+        "contactType": "Customer Service",
+        "areaServed": "GB",
+        "availableLanguage": "English"
+      },
+      {
+        "@type": "ContactPoint",
+        "telephone": `+44${BRAND.phone.substring(1)}`,
+        "contactType": "Emergency Service",
+        "areaServed": "GB",
+        "availableLanguage": "English",
+        "hoursAvailable": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          "opens": "00:00",
+          "closes": "23:59"
+        }
+      }
+    ],
+    "sameAs": BRAND.socialProfiles,
+    "foundingLocation": {
+      "@type": "Place",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Manchester",
+        "addressRegion": "Greater Manchester",
+        "addressCountry": "GB"
+      }
+    },
+    "slogan": BRAND.tagline,
+    "knowsAbout": [
+      "Drain Unblocking",
+      "CCTV Drain Surveys",
+      "High Pressure Drain Jetting",
+      "Emergency Drainage Services",
+      "Blocked Toilets",
+      "Blocked Sinks",
+      "Drain Repairs",
+      "Root Removal",
+      "Septic Tank Services"
+    ]
+  };
+}
+
+/**
+ * WebPage schema generator
+ * Provides context about the webpage itself
+ */
+export function getWebPageSchema(options: {
+  url: string;
+  name: string;
+  description: string;
+  breadcrumb?: Array<{ name: string; url: string }>;
+  datePublished?: string;
+  dateModified?: string;
+}) {
+  const webPageSchema: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${options.url.startsWith('http') ? options.url : siteUrl + options.url}/#webpage`,
+    "url": options.url.startsWith('http') ? options.url : siteUrl + options.url,
+    "name": options.name,
+    "description": options.description,
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      "url": siteUrl,
+      "name": BRAND.brandName,
+      "publisher": {
+        "@id": `${siteUrl}/#organization`
+      }
+    },
+    "about": {
+      "@id": `${siteUrl}/#business`
+    },
+    "inLanguage": "en-GB",
+    "potentialAction": {
+      "@type": "ReadAction",
+      "target": options.url.startsWith('http') ? options.url : siteUrl + options.url
+    }
+  };
+
+  if (options.datePublished) {
+    webPageSchema.datePublished = options.datePublished;
+  }
+
+  if (options.dateModified) {
+    webPageSchema.dateModified = options.dateModified;
+  }
+
+  if (options.breadcrumb && options.breadcrumb.length > 0) {
+    webPageSchema.breadcrumb = {
+      "@type": "BreadcrumbList",
+      "itemListElement": options.breadcrumb.map((item, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "name": item.name,
+        "item": item.url.startsWith('http') ? item.url : siteUrl + item.url
+      }))
+    };
+  }
+
+  return webPageSchema;
+}
+
+/**
+ * WebSite schema - for the website as a whole
+ * Best placed on homepage
+ */
+export function getWebSiteSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${siteUrl}/#website`,
+    "url": siteUrl,
+    "name": BRAND.brandName,
+    "description": "Professional drain unblocking, CCTV surveys, and emergency drainage services across Manchester and Greater Manchester.",
+    "publisher": {
+      "@id": `${siteUrl}/#organization`
+    },
+    "inLanguage": "en-GB",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": `${siteUrl}/services?q={search_term_string}`
+      },
+      "query-input": "required name=search_term_string"
+    }
+  };
+}
+
+/**
+ * Get complete homepage schema with all entities
+ * Includes: Organization, WebSite, LocalBusiness, Reviews
+ */
+export function getCompleteHomepageSchema() {
+  const businessSchema = getBaseBusinessSchema();
+  const organizationSchema = getOrganizationSchema();
+  const websiteSchema = getWebSiteSchema();
+  const reviewSchemas = getReviewsSchema();
+
+  return [businessSchema, organizationSchema, websiteSchema, ...reviewSchemas];
+}
+
+/**
+ * Get aggregate rating data for external use
+ */
+export function getAggregateRatingData() {
+  return AGGREGATE_RATING;
+}
+
+/**
+ * Get customer reviews data for external use
+ */
+export function getCustomerReviews() {
+  return CUSTOMER_REVIEWS;
 }

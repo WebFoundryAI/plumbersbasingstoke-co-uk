@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { BRAND } from '../data/brand';
 import { PAGE_FAQS } from '../data/faqs';
-import { getBreadcrumbSchema, getFAQSchema } from '../utils/schema';
+import { getBreadcrumbSchema, getFAQSchema, getWebPageSchema, serializeSchema } from '../utils/schema';
 
 // SEO-optimized title (50-60 chars)
 const title = `Drainage FAQs | Common Questions About Drain Services`;
@@ -10,19 +10,26 @@ const title = `Drainage FAQs | Common Questions About Drain Services`;
 // SEO-optimized description (120-155 chars) with benefits and CTA
 const description = `Find answers to common questions about blocked drains, costs, response times, and emergency callouts in Manchester. Still need help? Call ${BRAND.phoneFormatted}.`;
 
-const breadcrumbSchema = getBreadcrumbSchema([
+const breadcrumbItems = [
   { name: "Home", url: "/" },
   { name: "FAQs", url: "/faq" }
-]);
+];
 
+const breadcrumbSchema = getBreadcrumbSchema(breadcrumbItems);
 const faqSchema = getFAQSchema(PAGE_FAQS);
+const webPageSchema = getWebPageSchema({
+  url: '/faq',
+  name: title,
+  description: description,
+  breadcrumb: breadcrumbItems
+});
+
+const combinedPageSchema = [breadcrumbSchema, faqSchema, webPageSchema];
 ---
 
 <BaseLayout title={title} description={description} canonical="/faq">
-  <!-- BreadcrumbList Schema -->
-  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
-  <!-- FAQPage Schema -->
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <!-- Page Schemas (Breadcrumb + FAQ + WebPage) -->
+  <script type="application/ld+json" set:html={serializeSchema(combinedPageSchema)} />
   <!-- Hero Section -->
   <section class="hero-section">
     <div class="hero-overlay py-16 md:py-20">

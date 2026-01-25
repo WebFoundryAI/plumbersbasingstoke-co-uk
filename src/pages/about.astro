@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { BRAND } from '../data/brand';
 import { ABOUT_CONTENT } from '../data/staticContent';
-import { getBreadcrumbSchema } from '../utils/schema';
+import { getBreadcrumbSchema, getWebPageSchema, serializeSchema } from '../utils/schema';
 
 // SEO-optimized title (50-60 chars)
 const title = `About Us | Manchester's Trusted Drainage Specialists`;
@@ -10,15 +10,26 @@ const title = `About Us | Manchester's Trusted Drainage Specialists`;
 // SEO-optimized description (120-155 chars) with benefits and CTA
 const description = `Meet ${BRAND.brandName} - fully insured, experienced drainage engineers serving Greater Manchester 24/7. No call-out fee, guaranteed work. Call ${BRAND.phoneFormatted}.`;
 
-const breadcrumbSchema = getBreadcrumbSchema([
+const breadcrumbItems = [
   { name: "Home", url: "/" },
   { name: "About Us", url: "/about" }
-]);
+];
+
+const breadcrumbSchema = getBreadcrumbSchema(breadcrumbItems);
+
+const webPageSchema = getWebPageSchema({
+  url: '/about',
+  name: title,
+  description: description,
+  breadcrumb: breadcrumbItems
+});
+
+const combinedPageSchema = [breadcrumbSchema, webPageSchema];
 ---
 
 <BaseLayout title={title} description={description} canonical="/about">
-  <!-- BreadcrumbList Schema -->
-  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <!-- Page Schemas (Breadcrumb + WebPage) -->
+  <script type="application/ld+json" set:html={serializeSchema(combinedPageSchema)} />
 
   <!-- Hero Section -->
   <section class="hero-section">
