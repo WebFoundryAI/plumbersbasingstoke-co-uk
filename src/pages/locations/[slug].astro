@@ -97,36 +97,13 @@ const faqPageSchema = hubContent ? getFAQSchema(faqs) : undefined;
             {locationContent}
           </p>
 
-          <!-- Map Section -->
-          {hubContent && (
-            <div class="mb-12">
-              <h3 class="text-xl font-bold mb-4">Map of {location.name}</h3>
-              <div class="rounded-lg overflow-hidden mb-3 border border-border">
-                <iframe
-                  src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyDummyKeyForDisplay&q=${encodeURIComponent(location.name)},${encodeURIComponent(location.countyOrRegion || 'Greater Manchester')}`}
-                  width="100%"
-                  height="400"
-                  style="border:0;"
-                  allowFullScreen=""
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title={`Map of ${location.name}`}
-                  class="w-full h-full"
-                />
-              </div>
-              <p class="text-sm text-muted-foreground">
-                Serving homes and businesses across {location.name} and nearby locations.
-              </p>
-            </div>
-          )}
-
           <!-- Drainage Profile Section -->
           {hubContent && (
             <div class="mb-12">
               <h3 class="text-xl font-bold mb-4">Drainage Profile of {location.name}</h3>
-              <div class="text-muted-foreground space-y-4 prose prose-sm">
+              <div class="space-y-4">
                 {hubContent.drainageProfile.split('\n\n').map((paragraph) => (
-                  <p>{paragraph}</p>
+                  <p class="text-muted-foreground leading-relaxed">{paragraph}</p>
                 ))}
               </div>
             </div>
@@ -195,6 +172,27 @@ const faqPageSchema = hubContent ? getFAQSchema(faqs) : undefined;
                 </div>
               </details>
             ))}
+          </div>
+
+          <!-- Map Section -->
+          <div class="mb-12 mt-10">
+            <h3 class="text-xl font-bold mb-4">Find Us in {location.name}</h3>
+            <div class="rounded-lg overflow-hidden mb-3 border border-border">
+              <iframe
+                src={`https://www.google.com/maps?q=${location.latitude},${location.longitude}&z=14&output=embed`}
+                width="100%"
+                height="400"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title={`Map of ${location.name}, ${location.countyOrRegion || 'Greater Manchester'}`}
+                class="w-full"
+              ></iframe>
+            </div>
+            <p class="text-sm text-muted-foreground">
+              Serving homes and businesses across {location.name} and surrounding areas.
+            </p>
           </div>
 
           <!-- Other locations -->
