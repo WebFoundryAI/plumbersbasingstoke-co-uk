@@ -68,7 +68,7 @@ const totalPages =
   1; // for /blog/ index page
 ---
 
-<BaseLayout title={title} description={description} canonical="/sitemap/">
+<BaseLayout title={title} description={description} canonical="/sitemap/" noindex={true}>
   <!-- BreadcrumbList Schema -->
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 
