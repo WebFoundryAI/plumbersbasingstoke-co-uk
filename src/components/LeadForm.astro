@@ -17,72 +17,59 @@ const {
 } = Astro.props;
 ---
 
-<div class={`bg-card p-6 rounded-xl border border-border shadow-sm ${compact ? 'p-4' : ''}`}>
-  <h2 class="text-xl font-bold mb-2">{heading}</h2>
-  <p class="text-muted-foreground text-sm mb-4">Call us on <a href={`tel:${BRAND.phone}`}>{BRAND.phoneFormatted}</a> for immediate assistance, or request a callback below.</p>
+<div class={`bg-card p-5 rounded-xl border border-border shadow-sm ${compact ? 'p-4' : ''}`}>
+  <h2 class="text-xl font-bold mb-1">{heading}</h2>
 
-  <div id={`${formId}-error-summary`} class="border border-red-200 bg-red-50 text-red-800 rounded-lg p-3 mt-4 hidden" role="alert" aria-live="assertive" tabindex="-1">
+  <div id={`${formId}-error-summary`} class="border border-red-200 bg-red-50 text-red-800 rounded-lg p-3 mt-3 hidden" role="alert" aria-live="assertive" tabindex="-1">
     <p class="font-bold mb-1">Please check the form:</p>
     <ul id={`${formId}-error-list`}></ul>
   </div>
 
-  <form class="grid gap-4 mt-4 js-lead-form" id={formId} novalidate data-source={source}>
+  <form class="grid gap-3 mt-3 js-lead-form" id={formId} novalidate data-source={source}>
     <input type="text" name="company" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
     <div>
-      <label class="block font-semibold mb-1.5" for={`${formId}-name`}>Full name</label>
-      <input class="w-full border border-border rounded-lg bg-white px-3 py-2.5" id={`${formId}-name`} name="name" type="text" required autocomplete="name" />
-      <p class="text-red-700 text-xs min-h-[1em] mt-1" id={`${formId}-name-error`}></p>
+      <label class="block font-semibold mb-1" for={`${formId}-name`}>Full name</label>
+      <input class="w-full border border-border rounded-lg bg-white px-3 py-2" id={`${formId}-name`} name="name" type="text" required autocomplete="name" />
+      <p class="text-red-700 text-xs mt-0.5" id={`${formId}-name-error`}></p>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-4">
+    <div class="grid md:grid-cols-2 gap-3">
       <div>
-        <label class="block font-semibold mb-1.5" for={`${formId}-phone`}>Phone</label>
-        <input class="w-full border border-border rounded-lg bg-white px-3 py-2.5" id={`${formId}-phone`} name="phone" type="tel" required autocomplete="tel" inputmode="tel" />
-        <p class="text-red-700 text-xs min-h-[1em] mt-1" id={`${formId}-phone-error`}></p>
+        <label class="block font-semibold mb-1" for={`${formId}-phone`}>Phone</label>
+        <input class="w-full border border-border rounded-lg bg-white px-3 py-2" id={`${formId}-phone`} name="phone" type="tel" required autocomplete="tel" inputmode="tel" />
+        <p class="text-red-700 text-xs mt-0.5" id={`${formId}-phone-error`}></p>
       </div>
 
       <div>
-        <label class="block font-semibold mb-1.5" for={`${formId}-postcode`}>Postcode</label>
-        <div class="grid grid-cols-[1fr_auto] gap-2">
-          <input class="w-full border border-border rounded-lg bg-white px-3 py-2.5" id={`${formId}-postcode`} name="postcode" type="text" required autocomplete="postal-code" />
-          <button class="btn-outline cursor-pointer" type="button" data-action="lookup">Lookup</button>
-        </div>
-        <p class="text-muted-foreground text-xs mt-1">Use postcode lookup to speed up address entry.</p>
-        <p class="text-red-700 text-xs min-h-[1em] mt-1" id={`${formId}-postcode-error`}></p>
+        <label class="block font-semibold mb-1" for={`${formId}-postcode`}>Postcode</label>
+        <input class="w-full border border-border rounded-lg bg-white px-3 py-2" id={`${formId}-postcode`} name="postcode" type="text" required autocomplete="postal-code" />
+        <p class="text-red-700 text-xs mt-0.5" id={`${formId}-postcode-error`}></p>
       </div>
     </div>
 
     <div>
-      <label class="block font-semibold mb-1.5" for={`${formId}-address-select`}>Address lookup results</label>
-      <select class="w-full border border-border rounded-lg bg-white px-3 py-2.5" id={`${formId}-address-select`} name="addressLookup">
-        <option value="">Select an address (optional)</option>
-      </select>
-      <p class="text-muted-foreground text-xs mt-1" id={`${formId}-lookup-status`}>Enter postcode and click Lookup.</p>
+      <label class="block font-semibold mb-1" for={`${formId}-address`}>Address (optional)</label>
+      <input class="w-full border border-border rounded-lg bg-white px-3 py-2" id={`${formId}-address`} name="address" type="text" autocomplete="street-address" placeholder="House number and street" />
+      <p class="text-red-700 text-xs mt-0.5" id={`${formId}-address-error`}></p>
     </div>
 
     <div>
-      <label class="block font-semibold mb-1.5" for={`${formId}-address`}>Address (optional)</label>
-      <input class="w-full border border-border rounded-lg bg-white px-3 py-2.5" id={`${formId}-address`} name="address" type="text" autocomplete="street-address" placeholder="House number and street" />
-      <p class="text-red-700 text-xs min-h-[1em] mt-1" id={`${formId}-address-error`}></p>
-    </div>
-
-    <div>
-      <label class="block font-semibold mb-1.5" for={`${formId}-service`}>Service needed</label>
-      <select class="w-full border border-border rounded-lg bg-white px-3 py-2.5" id={`${formId}-service`} name="service" required autocomplete="off">
+      <label class="block font-semibold mb-1" for={`${formId}-service`}>Service needed</label>
+      <select class="w-full border border-border rounded-lg bg-white px-3 py-2" id={`${formId}-service`} name="service" required autocomplete="off">
         <option value="">Select a service</option>
         {SERVICES.map((service) => (
           <option value={service.name}>{service.name}</option>
         ))}
         <option value="Other">Other</option>
       </select>
-      <p class="text-red-700 text-xs min-h-[1em] mt-1" id={`${formId}-service-error`}></p>
+      <p class="text-red-700 text-xs mt-0.5" id={`${formId}-service-error`}></p>
     </div>
 
     <div>
-      <label class="block font-semibold mb-1.5" for={`${formId}-notes`}>Job details (optional)</label>
-      <textarea class="w-full border border-border rounded-lg bg-white px-3 py-2.5" id={`${formId}-notes`} name="notes" rows="4" placeholder="Describe the problem and best callback time."></textarea>
-      <p class="text-red-700 text-xs min-h-[1em] mt-1" id={`${formId}-notes-error`}></p>
+      <label class="block font-semibold mb-1" for={`${formId}-notes`}>Job details (optional)</label>
+      <textarea class="w-full border border-border rounded-lg bg-white px-3 py-2" id={`${formId}-notes`} name="notes" rows="2" placeholder="Describe the problem and best callback time."></textarea>
+      <p class="text-red-700 text-xs mt-0.5" id={`${formId}-notes-error`}></p>
     </div>
 
     <button class="btn-primary w-full cursor-pointer" type="submit">Request quote</button>
@@ -109,9 +96,6 @@ const {
       const summary = document.getElementById(`${formId}-error-summary`);
       const errorList = document.getElementById(`${formId}-error-list`);
       const success = document.getElementById(`${formId}-success`);
-      const lookupStatus = document.getElementById(`${formId}-lookup-status`);
-      const addressSelect = formElement.querySelector('select[name="addressLookup"]');
-      const addressInput = formElement.querySelector('input[name="address"]');
 
       const setFieldError = (name, message) => {
         const field = formElement.querySelector(`[name="${name}"]`);
@@ -156,48 +140,6 @@ const {
 
         return errors.length === 0;
       };
-
-      formElement.addEventListener('click', async (event) => {
-        const target = event.target;
-        if (!(target instanceof HTMLElement)) return;
-        const button = target.closest('button[data-action="lookup"]');
-        if (!button) return;
-
-        const postcodeInput = formElement.querySelector('input[name="postcode"]');
-        if (!(postcodeInput instanceof HTMLInputElement)) return;
-        const postcode = postcodeInput.value.trim().toUpperCase();
-
-        if (!postcodeRegex.test(postcode)) {
-          setFieldError('postcode', 'Enter a valid UK postcode before lookup.');
-          return;
-        }
-
-        if (lookupStatus) lookupStatus.textContent = 'Looking up addresses…';
-        button.setAttribute('disabled', 'true');
-
-        try {
-          const response = await fetch(`https://api.getAddress.io/find/${encodeURIComponent(postcode)}?api-key=demo&expand=true`);
-          const payload = await response.json();
-          if (!response.ok || !Array.isArray(payload.addresses) || !payload.addresses.length) throw new Error('No addresses found');
-
-          if (addressSelect instanceof HTMLSelectElement) {
-            addressSelect.innerHTML = '<option value="">Select an address</option>' + payload.addresses.map((addr) => {
-              const line = [addr.line_1, addr.line_2, addr.line_3, addr.town_or_city].filter(Boolean).join(', ');
-              return `<option value="${line.replace(/"/g, '&quot;')}">${line}</option>`;
-            }).join('');
-          }
-          if (lookupStatus) lookupStatus.textContent = 'Select your address from the list, or type manually below.';
-        } catch {
-          if (lookupStatus) lookupStatus.textContent = 'Address lookup unavailable. Please enter your address manually.';
-        } finally {
-          button.removeAttribute('disabled');
-        }
-      });
-
-      addressSelect?.addEventListener('change', (event) => {
-        const target = event.target;
-        if (target instanceof HTMLSelectElement && addressInput instanceof HTMLInputElement && target.value) addressInput.value = target.value;
-      });
 
       formElement.addEventListener('submit', async (event) => {
         event.preventDefault();
