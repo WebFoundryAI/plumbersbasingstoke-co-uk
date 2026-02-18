@@ -1,17 +1,13 @@
-// Cloudflare Pages Function – postcode lookup proxy
-// Keeps getAddress.io API key server-side
+// Cloudflare Pages Function – postcode lookup via Ideal Postcodes API
+// Royal Mail PAF licensed data | https://ideal-postcodes.co.uk
+//
+// Set IDEAL_POSTCODES_API_KEY in Cloudflare Pages dashboard:
+//   Settings > Environment variables
+//
+// The 'iddqd' community key works for real postcodes (15 lookups/day/IP).
+// For production, sign up at https://ideal-postcodes.co.uk (~2p per lookup).
 
-// Fallback key used when the env var is not set in the Cloudflare Pages dashboard.
-const FALLBACK_API_KEY = 'Su2Db2K84Ue9dJWIMoaHFQ48761';
-
-const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
-const RATE_LIMIT_MAX = 10;
-
-// @ts-ignore - lightweight in-memory store for single isolate best-effort limiting
-globalThis.__postcodeLookupRateLimit = globalThis.__postcodeLookupRateLimit || new Map<string, { count: number; start: number }>();
-// @ts-ignore
-const memoryStore: Map<string, { count: number; start: number }> = globalThis.__postcodeLookupRateLimit;
-
+const API_KEY = 'iddqd';
 const postcodeRegex = /^[A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2}$/i;
 
 export const onRequestGet = async (context: any) => {
@@ -22,48 +18,47 @@ export const onRequestGet = async (context: any) => {
     return Response.json({ error: 'Enter a valid UK postcode.' }, { status: 400 });
   }
 
-  const ip = context.request.headers.get('CF-Connecting-IP') || 'unknown';
-  const now = Date.now();
-  const entry = memoryStore.get(ip);
-
-  if (!entry || now - entry.start > RATE_LIMIT_WINDOW_MS) {
-    memoryStore.set(ip, { count: 1, start: now });
-  } else if (entry.count >= RATE_LIMIT_MAX) {
-    return Response.json({ error: 'Too many requests, please try again shortly.' }, { status: 429 });
-  } else {
-    memoryStore.set(ip, { count: entry.count + 1, start: entry.start });
-  }
-
-  const apiKey = (context.env.GETADDRESS_API_KEY as string | undefined) || FALLBACK_API_KEY;
-  if (!apiKey) {
-    return Response.json({ error: 'Postcode lookup is not configured.' }, { status: 500 });
-  }
-
+  const apiKey = (context.env?.IDEAL_POSTCODES_API_KEY as string | undefined) || API_KEY;
   const cleanPostcode = postcode.replace(/\s/g, '');
 
   try {
     const response = await fetch(
-      `https://api.getAddress.io/find/${encodeURIComponent(cleanPostcode)}?api-key=${encodeURIComponent(apiKey)}&expand=true`
+      `https://api.ideal-postcodes.co.uk/v1/postcodes/${encodeURIComponent(cleanPostcode)}?api_key=${encodeURIComponent(apiKey)}`
     );
     const payload = await response.json() as any;
 
-    if (!response.ok || !Array.isArray(payload.addresses) || !payload.addresses.length) {
+    // Ideal Postcodes uses code 2000 for success, 4040 for not found,
+    // 4010 for invalid/exhausted key, 4020 for limit reached
+    if (payload.code === 4040) {
       return Response.json({ error: 'No addresses found for this postcode.' }, { status: 404 });
     }
 
-    const formatted = cleanPostcode.length > 3
-      ? cleanPostcode.slice(0, -3).toUpperCase() + ' ' + cleanPostcode.slice(-3).toUpperCase()
-      : cleanPostcode.toUpperCase();
+    if (payload.code === 4010 || payload.code === 4020) {
+      return Response.json(
+        { error: 'Postcode lookup limit reached. Please enter your address manually.' },
+        { status: 429 },
+      );
+    }
 
-    const addresses = payload.addresses.map((addr: any) => {
-      const line = [addr.line_1, addr.line_2, addr.line_3, addr.town_or_city]
+    if (!Array.isArray(payload.result) || !payload.result.length) {
+      return Response.json(
+        { error: payload.message || 'No addresses found for this postcode.' },
+        { status: 404 },
+      );
+    }
+
+    const addresses = payload.result.map((addr: any) => {
+      const line = [addr.line_1, addr.line_2, addr.line_3, addr.post_town, addr.postcode]
         .filter(Boolean)
         .join(', ');
-      return { line: `${line}, ${formatted}` };
+      return { line };
     });
 
     return Response.json({ addresses });
-  } catch {
-    return Response.json({ error: 'Address lookup unavailable. Please enter your address manually.' }, { status: 502 });
+  } catch (err: any) {
+    return Response.json(
+      { error: 'Address lookup temporarily unavailable. Please enter your address manually.' },
+      { status: 502 },
+    );
   }
 };

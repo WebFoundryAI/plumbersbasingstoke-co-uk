@@ -178,6 +178,15 @@ const {
         try {
           var cleanPC = postcode.replace(/\s/g, '');
           var res = await fetch('/api/postcode-lookup?postcode=' + encodeURIComponent(cleanPC));
+
+          // Check content-type before parsing – if the endpoint isn't deployed
+          // the host returns an HTML page and .json() would throw unhelpfully.
+          var ct = (res.headers.get('content-type') || '');
+          if (!ct.includes('application/json')) {
+            setFieldError('postcode', 'Address lookup not available right now. Please type your address manually.');
+            return;
+          }
+
           var data = await res.json();
 
           if (!res.ok || !Array.isArray(data.addresses) || !data.addresses.length) {
@@ -194,7 +203,7 @@ const {
           }
           if (addressLookupWrap) addressLookupWrap.classList.remove('hidden');
         } catch (err) {
-          setFieldError('postcode', 'Could not find addresses. Please type your address manually.');
+          setFieldError('postcode', 'Address lookup failed. Please type your address manually.');
         } finally {
           button.textContent = originalText;
           button.disabled = false;
