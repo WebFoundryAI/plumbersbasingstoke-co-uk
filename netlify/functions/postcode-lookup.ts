@@ -1,3 +1,6 @@
+// DEPRECATED: This Netlify function is superseded by /functions/api/postcode-lookup.ts
+// (Cloudflare Pages version). Kept for reference only.
+//
 // Netlify Function – postcode lookup via Ideal Postcodes API
 // Royal Mail PAF licensed data | https://ideal-postcodes.co.uk
 //

@@ -1,5 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "_deprecated": "This Vercel config is no longer active. The site deploys to Cloudflare Pages. Kept for reference only.",
   "redirects": [
     {
       "source": "/:path*",

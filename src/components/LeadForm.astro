@@ -96,6 +96,7 @@ const {
     const forms = document.querySelectorAll('.js-lead-form');
     if (!forms.length) return;
     const postcodeRegex = /^[A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2}$/i;
+    const phoneRegex = /^(?:(?:\+44\s?|0)(?:1\d{3,4}|2\d{3,4}|3\d{3,4}|7\d{3}|8\d{3})\s?\d{3,4}\s?\d{0,4})$/;
 
     forms.forEach((form) => {
       const formElement = form;
@@ -135,8 +136,8 @@ const {
         const postcode = String(data.get('postcode') || '').trim();
         if (postcode && !postcodeRegex.test(postcode)) errors.push({ field: 'postcode', message: 'Enter a valid UK postcode.' });
 
-        const phone = String(data.get('phone') || '').trim();
-        if (phone && phone.replace(/\D/g, '').length < 10) errors.push({ field: 'phone', message: 'Enter a valid phone number.' });
+        const phone = String(data.get('phone') || '').trim().replace(/[\s\-()]/g, '');
+        if (phone && !phoneRegex.test(phone)) errors.push({ field: 'phone', message: 'Enter a valid UK phone number (e.g. 07700 900000).' });
 
         ['name', 'phone', 'postcode', 'service', 'address', 'notes'].forEach((name) => setFieldError(name, ''));
         errors.forEach(({ field, message }) => setFieldError(field, message));
@@ -196,11 +197,13 @@ const {
           }
 
           if (addressSelect instanceof HTMLSelectElement) {
-            addressSelect.innerHTML = '<option value="">Select an address</option>' +
-              data.addresses.map(function (addr) {
-                var val = addr.line.replace(/"/g, '&quot;');
-                return '<option value="' + val + '">' + addr.line + '</option>';
-              }).join('');
+            addressSelect.innerHTML = '<option value="">Select an address</option>';
+            data.addresses.forEach(function (addr) {
+              var opt = document.createElement('option');
+              opt.value = addr.line;
+              opt.textContent = addr.line;
+              addressSelect.appendChild(opt);
+            });
           }
           if (addressLookupWrap) addressLookupWrap.classList.remove('hidden');
           if (addressManualWrap) addressManualWrap.classList.add('hidden');

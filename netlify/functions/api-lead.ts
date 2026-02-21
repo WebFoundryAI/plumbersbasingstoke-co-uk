@@ -1,3 +1,7 @@
+// DEPRECATED: This Netlify function uses the old Supabase REST API backend.
+// The active version is /functions/api/lead.ts (Cloudflare Pages + D1 database).
+// Kept for reference only — do not deploy to Netlify without updating to D1.
+
 const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
 const RATE_LIMIT_MAX = 5;
 const memoryStore = new Map<string, { count: number; start: number }>();

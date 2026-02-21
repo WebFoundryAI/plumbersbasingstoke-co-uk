@@ -90,6 +90,7 @@ const ogImage = image ? `${siteUrl}${image}` : defaultOgImage;
     </script>
   </head>
   <body class="min-h-screen flex flex-col">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-white focus:text-primary focus:px-4 focus:py-2 focus:rounded focus:shadow-lg focus:font-semibold">Skip to content</a>
     <header class="bg-white border-b border-border sticky top-0 z-40">
       <div class="bg-slate-900 text-white">
         <div class="container-wide px-4 flex items-center justify-between py-2 text-sm">
@@ -126,7 +127,7 @@ const ogImage = image ? `${siteUrl}${image}` : defaultOgImage;
       </nav>
     </header>
 
-    <main class="flex-grow">
+    <main id="main-content" class="flex-grow">
       <slot />
     </main>
 

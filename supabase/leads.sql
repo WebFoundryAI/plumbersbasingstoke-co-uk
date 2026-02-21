@@ -1,3 +1,6 @@
+-- DEPRECATED: This Supabase migration is no longer used.
+-- The active database is Cloudflare D1. See /functions/api/lead.ts for the current schema.
+
 create table if not exists public.leads (
   id bigint generated always as identity primary key,
   created_at timestamptz not null default now(),
