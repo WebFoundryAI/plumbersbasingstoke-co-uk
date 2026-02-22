@@ -120,6 +120,7 @@ const ogImage = image ? `${siteUrl}${image}` : defaultOgImage;
           <a class="font-semibold text-foreground hover:text-primary transition-colors no-underline" href="/services/">Services</a>
           <a class="font-semibold text-foreground hover:text-primary transition-colors no-underline" href="/locations/">Locations</a>
           <a class="font-semibold text-foreground hover:text-primary transition-colors no-underline" href="/about/">About</a>
+          <a class="font-semibold text-foreground hover:text-primary transition-colors no-underline" href="/blog/">Blog</a>
           <a class="font-semibold text-foreground hover:text-primary transition-colors no-underline" href="/contact/">Contact</a>
         </nav>
 
@@ -134,6 +135,7 @@ const ogImage = image ? `${siteUrl}${image}` : defaultOgImage;
           <a href="/services/">Services</a>
           <a href="/locations/">Locations</a>
           <a href="/about/">About</a>
+          <a href="/blog/">Blog</a>
           <a href="/contact/">Contact</a>
           <a class="btn-primary no-underline" href={`tel:${BRAND.phone}`}>Call now</a>
         </div>
@@ -166,7 +168,7 @@ const ogImage = image ? `${siteUrl}${image}` : defaultOgImage;
         <div>
           <p class="font-semibold mb-2">Coverage & trust</p>
           <ul class="text-sm space-y-1">
-            {LOCATIONS.slice(0, 5).map((location) => (
+            {LOCATIONS.map((location) => (
               <li><a href={`/locations/${location.slug}/`} class="hover:underline">Blocked drains in {location.name}</a></li>
             ))}
           </ul>

@@ -1,10 +1,13 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import HeroWithLeadForm from '../../components/HeroWithLeadForm.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { LOCATIONS, getLocationBySlug } from '../../data/locations';
 import { SERVICES } from '../../data/services';
 import { BRAND } from '../../data/brand';
 import { getLocationFAQs } from '../../data/faqs';
+import { getLocationHubContent } from '../../data/locationHubContent';
+import { getRecentPosts } from '../../data/blog';
 import { getBreadcrumbSchema, getLocationPageSchema, getFAQSchema } from '../../utils/schema';
 
 export async function getStaticPaths() {
@@ -14,9 +17,11 @@ export async function getStaticPaths() {
 const location = getLocationBySlug(Astro.params.slug || '');
 if (!location) return Astro.redirect('/locations/');
 
-const title = `Blocked Drains in ${location.name} | Local Drainage Engineers`;
-const description = `Need blocked drain help in ${location.name}? Fast response, fixed pricing, and 24/7 emergency support. Call ${BRAND.phoneFormatted}.`;
+const title = `Blocked Drains ${location.name} | Same-Day | No Call-Out Fee`;
+const description = `Blocked drain in ${location.name}? Same-day response, no call-out fee, fixed pricing. Local drainage engineers available 24/7. Call ${BRAND.phoneFormatted}.`;
 const faqs = getLocationFAQs(location.name);
+const hubContent = getLocationHubContent(location.slug);
+const recentPosts = getRecentPosts(3);
 const pageSchema = [
   getLocationPageSchema(location),
   getBreadcrumbSchema([
@@ -35,6 +40,12 @@ const pageSchema = [
     formId={`location-${location.slug}-lead-form`}
     source={`location:${location.slug}`}
   />
+
+  <Breadcrumbs items={[
+    { name: 'Home', url: '/' },
+    { name: 'Locations', url: '/locations/' },
+    { name: location.name },
+  ]} />
 
   <section class="section-padding bg-white">
     <div class="container-wide px-4 grid md:grid-cols-2 gap-8">
@@ -58,16 +69,72 @@ const pageSchema = [
     </div>
   </section>
 
-  <section class="section-padding">
+  {hubContent && (
+    <section class="section-padding">
+      <div class="container-wide px-4">
+        <div class="max-w-3xl">
+          <h2 class="text-2xl md:text-3xl font-bold mb-6">Drainage in {location.name}</h2>
+          {hubContent.drainageProfile.split('\n\n').map((paragraph) => (
+            <p class="text-muted-foreground mb-4 leading-relaxed">{paragraph}</p>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {hubContent && hubContent.landmarks.length > 0 && (
+    <section class="section-padding bg-white">
+      <div class="container-wide px-4">
+        <h2 class="text-2xl md:text-3xl font-bold mb-6">Areas and landmarks we serve near {location.name}</h2>
+        <div class="flex flex-wrap gap-2">
+          {hubContent.landmarks.map((landmark) => (
+            <span class="bg-muted text-muted-foreground text-sm px-3 py-1.5 rounded-full">{landmark}</span>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {hubContent && hubContent.caseStudy && (
+    <section class="section-padding">
+      <div class="container-wide px-4">
+        <div class="max-w-3xl">
+          <h2 class="text-2xl md:text-3xl font-bold mb-6">Recent case study in {location.name}</h2>
+          <div class="bg-card p-6 md:p-8 rounded-xl border border-border shadow-sm">
+            <p class="text-muted-foreground leading-relaxed">{hubContent.caseStudy}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="section-padding bg-white">
     <div class="container-wide px-4">
       <h2 class="text-2xl md:text-3xl font-bold mb-8">Areas covered near {location.name}</h2>
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {LOCATIONS.filter((l) => l.slug !== location.slug).slice(0, 6).map((nearby) => (
+        {LOCATIONS.filter((l) => l.slug !== location.slug).map((nearby) => (
           <a class="bg-card p-6 rounded-xl border border-border shadow-sm hover:shadow-md hover:border-primary transition-all no-underline text-foreground" href={`/locations/${nearby.slug}/`}>Blocked drains in {nearby.name}</a>
         ))}
       </div>
     </div>
   </section>
+
+  {recentPosts.length > 0 && (
+    <section class="section-padding">
+      <div class="container-wide px-4">
+        <h2 class="text-2xl md:text-3xl font-bold mb-8">Helpful drainage articles</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+          {recentPosts.map((post) => (
+            <a class="bg-card p-6 rounded-xl border border-border shadow-sm hover:shadow-md hover:border-primary transition-all no-underline text-foreground" href={`/blog/${post.slug}/`}>
+              <span class="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded">{post.category}</span>
+              <h3 class="text-lg font-bold mt-3 mb-2">{post.title}</h3>
+              <p class="text-muted-foreground text-sm">{post.excerpt}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
   <section class="section-padding bg-white">
     <div class="container-wide px-4">

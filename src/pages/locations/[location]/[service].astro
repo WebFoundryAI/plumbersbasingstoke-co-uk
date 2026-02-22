@@ -1,9 +1,11 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import HeroWithLeadForm from '../../../components/HeroWithLeadForm.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import { LOCATIONS, getLocationBySlug } from '../../../data/locations';
 import { SERVICES, getServiceBySlug } from '../../../data/services';
 import { BRAND } from '../../../data/brand';
+import { getRelatedBlogPosts } from '../../../data/blog';
 import { getBreadcrumbSchema, getLocationServicePageSchema, getFAQSchema } from '../../../utils/schema';
 import {
   getLocationServiceContent,
@@ -29,13 +31,14 @@ const locationData = getLocationData(location.slug);
 const howItWorks = SERVICE_HOW_IT_WORKS[service.slug] || [];
 const whyChooseUsBullets = SERVICE_WHY_CHOOSE_US[service.slug] || [];
 const faqs = getLocationServiceFAQs(location.slug, service.slug);
+const blogPosts = getRelatedBlogPosts(service.slug);
 
 function interpolate(text: string): string {
   return interpolateLocationText(text, location!.name, locationData, content);
 }
 
-const title = `${service.name} in ${location.name} | Local Drainage Experts`;
-const description = `${service.shortLabel} from trusted engineers in ${location.name}. Call ${BRAND.phoneFormatted} for quick support.`;
+const title = `${service.name} ${location.name} | Fast Response | No Call-Out Fee`;
+const description = `${service.shortLabel} in ${location.name}. No call-out fee, fixed pricing, 24/7 availability. Call ${BRAND.phoneFormatted} for fast local support.`;
 const pageSchema = [
   ...getLocationServicePageSchema(location, service),
   getBreadcrumbSchema([
@@ -55,6 +58,13 @@ const pageSchema = [
     formId={`location-service-${location.slug}-${service.slug}-lead-form`}
     source={`location-service:${location.slug}/${service.slug}`}
   />
+
+  <Breadcrumbs items={[
+    { name: 'Home', url: '/' },
+    { name: 'Locations', url: '/locations/' },
+    { name: location.name, url: `/locations/${location.slug}/` },
+    { name: service.name },
+  ]} />
 
   {/* Intro section */}
   {content && (
@@ -143,6 +153,23 @@ const pageSchema = [
               </summary>
               <div class="px-4 md:px-6 pb-4 md:pb-6 text-muted-foreground"><p>{faq.answer}</p></div>
             </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {blogPosts.length > 0 && (
+    <section class="section-padding bg-white">
+      <div class="container-wide px-4">
+        <h2 class="text-2xl md:text-3xl font-bold mb-8">Helpful articles</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          {blogPosts.map((post) => (
+            <a class="bg-card p-6 rounded-xl border border-border shadow-sm hover:shadow-md hover:border-primary transition-all no-underline text-foreground" href={`/blog/${post.slug}/`}>
+              <span class="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded">{post.category}</span>
+              <h3 class="text-lg font-bold mt-3 mb-2">{post.title}</h3>
+              <p class="text-muted-foreground text-sm">{post.excerpt}</p>
+            </a>
           ))}
         </div>
       </div>

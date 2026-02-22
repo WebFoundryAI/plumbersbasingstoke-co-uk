@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import HeroWithLeadForm from '../../../components/HeroWithLeadForm.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import { SERVICES, getServiceBySlug, getSubServiceBySlug } from '../../../data/services';
 import { LOCATIONS } from '../../../data/locations';
 import { BRAND } from '../../../data/brand';
@@ -22,8 +23,8 @@ if (!service || !subService) return Astro.redirect('/services/');
 const content = getSubServiceContent(subService.slug);
 const faqs = content?.faqs || [];
 
-const title = `${subService.name} Manchester | ${service.name}`;
-const description = `${subService.description} Call ${BRAND.phoneFormatted} for professional drainage support.`;
+const title = `${subService.name} Manchester | No Call-Out Fee | 24/7`;
+const description = `${subService.description} No call-out fee, fixed pricing. Call ${BRAND.phoneFormatted} for same-day help in Manchester.`;
 const pageSchema = [
   ...getSubServicePageSchema(service, subService),
   getBreadcrumbSchema([
@@ -43,6 +44,13 @@ const pageSchema = [
     formId={`subservice-${service.slug}-${subService.slug}-lead-form`}
     source={`subservice:${service.slug}/${subService.slug}`}
   />
+
+  <Breadcrumbs items={[
+    { name: 'Home', url: '/' },
+    { name: 'Services', url: '/services/' },
+    { name: service.name, url: `/services/${service.slug}/` },
+    { name: subService.name },
+  ]} />
 
   {/* Detailed description */}
   {content && (
@@ -137,7 +145,7 @@ const pageSchema = [
       <article class="bg-card p-6 rounded-xl border border-border shadow-sm">
         <h2 class="text-xl font-bold mb-4">Nearby locations</h2>
         <div class="grid gap-3">
-          {LOCATIONS.slice(0, 6).map((location) => (
+          {LOCATIONS.map((location) => (
             <a href={`/locations/${location.slug}/${service.slug}/`}>{subService.name} in {location.name}</a>
           ))}
         </div>
