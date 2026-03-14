@@ -1,8 +1,8 @@
 export const BRAND = {
   brandName: "Plumbers Basingstoke",
   domain: "plumbersbasingstoke.co.uk",
-  primaryLocation: "Manchester",
-  serviceAreaLabel: "Manchester and surrounding areas",
+  primaryLocation: "Basingstoke",
+  serviceAreaLabel: "Basingstoke and surrounding areas",
   phone: "01256840777",
   phoneFormatted: "01256 840777",
   email: "info@plumbersbasingstoke.co.uk",
