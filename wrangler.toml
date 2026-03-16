@@ -1,4 +1,5 @@
 # Cloudflare Worker Configuration for Trailing Slash Rewrite
+pages_build_output_dir = "dist"
 # This worker handles internal URL rewriting for trailing slashes
 
 name = "plumbersbasingstoke-co-uk-trailing-slash-rewrite"
