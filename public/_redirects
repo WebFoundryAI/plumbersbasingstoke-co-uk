@@ -8,3 +8,6 @@ http://plumbersbasingstoke.co.uk/* https://plumbersbasingstoke.co.uk/:splat 301
 # Old FAQ URL redirect (301 permanent)
 /frequently-asked-questions/ /faq/ 301
 /frequently-asked-questions /faq/ 301
+
+# Sitemap redirect — old single sitemap.xml now points to the index
+/sitemap.xml /sitemap-index.xml 301

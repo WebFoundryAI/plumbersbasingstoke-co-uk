@@ -44,7 +44,7 @@ Disallow: /status
 Disallow: /_astro/
 
 # Sitemap location
-Sitemap: https://plumbersbasingstoke.co.uk/sitemap.xml
+Sitemap: https://plumbersbasingstoke.co.uk/sitemap-index.xml
 
 # Host preference (canonical non-www HTTPS)
 Host: https://plumbersbasingstoke.co.uk
